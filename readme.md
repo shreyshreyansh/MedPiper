@@ -1,10 +1,13 @@
-# Rest api for login-signup-viewprofile-logout
+# Medpiper backend coding round
 
-This project consist of rest API's build in node-js using express and mongo-db for doing login, signup as well as to show the profile of the user and then finally logging out the user
-Here first simple sign-up route has been created, Here user have to provide his just email and password, you can change this in user schema according 
-to your need, one email can be registered only once, if he tried to register again auth failed will be shown, then for logging up he has to 
-provide correct credentials for login,if any of the 2 things is wrong he won't be able to login, then i am generating here a jwt token,
-which will only expire when the person logged out.
+This project consist of rest API's build in node-js using express and mongo-db for APIs for 
+- Users to signup as new user, login, and logout 
+- Password are encrypted before saving using the Bcrypt library
+- User session is maintained on the frontend level using JWT token
+- User is able to update his name, password and upload his profile picture
+- After logging in the user is able to create a new board and delete an existing board
+- Inside the board, the user is able to implement CRUD functionality for a to-do list
+- User can also change the status of the list item as - Todo, Doing, and Done
 
 ---
 ## Requirements
@@ -55,6 +58,11 @@ If you need to update `npm`, you can make it using `npm`! Cool right? After runn
   body-parser
   cookie-parser
   bcrypt
+  jsonwebtoken
+  passport
+  passport-jwt
+  nodemon
+  
 ```
 for installing the above packages you have to run the below command
 
