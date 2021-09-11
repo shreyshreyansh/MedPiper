@@ -4,108 +4,21 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./css/home.css" />
-    <title>Document</title>
+    <title>Home</title>
   </head>
   <body>
-    <div class="grid">
-      <div class="card">
-        <a href="#0" aria-labelledby="person1"></a>
-        <div class="card-front-wrap">
-          <div class="card-front">
-            <h1>Front<br />of<br />Card</h1>
-          </div>
-          <div class="card-footer">
-            <p><i class="far fa-clock fa-lg"></i>1 Hour</p>
-            <p><i class="far fa-comments fa-lg"></i>English</p>
-          </div>
-        </div>
-        <div class="card-overlay">
-          <h5 id="person1">
-            More Info <i class="far fa-arrow-alt-circle-down fa-lg"></i>
-          </h5>
-          <div class="card-body">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-            <div class="register-button">Register &#187;</div>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <a href="#0" aria-labelledby="person1"></a>
-        <div class="card-front-wrap">
-          <div class="card-front">
-            <h1>Front<br />of<br />Card</h1>
-          </div>
-          <div class="card-footer">
-            <p><i class="far fa-clock fa-lg"></i>1 Hour</p>
-            <p><i class="far fa-comments fa-lg"></i>English</p>
-          </div>
-        </div>
-        <div class="card-overlay">
-          <h5 id="person1">
-            More Info <i class="far fa-arrow-alt-circle-down fa-lg"></i>
-          </h5>
-          <div class="card-body">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-            <div class="register-button">Register &#187;</div>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <a href="#0" aria-labelledby="person1"></a>
-        <div class="card-front-wrap">
-          <div class="card-front">
-            <h1>Front<br />of<br />Card</h1>
-          </div>
-          <div class="card-footer">
-            <p><i class="far fa-clock fa-lg"></i>1 Hour</p>
-            <p><i class="far fa-comments fa-lg"></i>English</p>
-          </div>
-        </div>
-        <div class="card-overlay">
-          <h5 id="person1">
-            More Info <i class="far fa-arrow-alt-circle-down fa-lg"></i>
-          </h5>
-          <div class="card-body">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-            <div class="register-button">Register &#187;</div>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <a href="#0" aria-labelledby="person1"></a>
-        <div class="card-front-wrap">
-          <div class="card-front">
-            <h1>Front<br />of<br />Card</h1>
-          </div>
-          <div class="card-footer">
-            <p><i class="far fa-clock fa-lg"></i>1 Hour</p>
-            <p><i class="far fa-comments fa-lg"></i>English</p>
-          </div>
-        </div>
-        <div class="card-overlay">
-          <h5 id="person1">
-            More Info <i class="far fa-arrow-alt-circle-down fa-lg"></i>
-          </h5>
-          <div class="card-body">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-            <div class="register-button">Register &#187;</div>
-          </div>
-        </div>
-      </div>
+    <div class="alert" role="alert" id="loginAlert">
+      <p id="loginAlertMessage"></p>
     </div>
+    <div class="grid"></div>
     <div class="dropup">
       <img
         class="image"
@@ -113,11 +26,148 @@
         alt="profile_picture"
       />
       <div class="dropup-content">
-        <a href="#">Settings</a>
-        <a href="#">Logout</a>
+        <h4 id="username"></h4>
+        <a href="/settings">Settings</a>
+        <button onclick="handleLogout()">Logout</button>
       </div>
     </div>
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <form action="/api/createBoard" method="POST">
+          <div class="modal-form">
+            <span class="close">&times;</span>
+            <h2>Create a board</h2>
+            <div class="input-field">
+              <input
+                type="name"
+                placeholder="board name"
+                name="name"
+                required
+              />
+            </div>
+            <div class="input-field">
+              <input
+                type="textarea"
+                placeholder="description"
+                name="description"
+              />
+            </div>
+          </div>
+          <button id="create" type="submit">Create</button>
+        </form>
+      </div>
+    </div>
+    <button id="myBtn" class="plus">+</button>
+    <script>
+      $.ajax({
+        url: "/api/getUser",
+        type: "GET",
+        success: function (data, textStatus, jqXHR) {
+          let username = "";
+          if (jqXHR.responseJSON.firstname)
+            username += jqXHR.responseJSON.firstname + " ";
+          if (jqXHR.responseJSON.lastname)
+            username += jqXHR.responseJSON.lastname;
+          document.getElementById("username").innerText = username;
+          document
+            .getElementsByClassName("image")[0]
+            .setAttribute("src", jqXHR.responseJSON.image);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          alert(errorThrown);
+        },
+      });
+      $.ajax({
+        url: "/api/getAllBoard",
+        type: "GET",
+        success: function (data, textStatus, jqXHR) {
+          let content = "";
+          jqXHR.responseJSON.boards.map((x) => {
+            let board =
+              '<div class="card">' +
+              '<a target="_blank" href="' +
+              "/api/taskPage/" +
+              x._id +
+              '"></a>' +
+              '<div class="card-front-wrap">' +
+              '<div class="card-front">' +
+              "<h1>" +
+              x.name +
+              "</h1>" +
+              "</div>" +
+              "</div>" +
+              '<div class="card-overlay">' +
+              '<h5 id="person1">More Info <i class="far fa-arrow-alt-circle-down fa-lg"></i>' +
+              "</h5>" +
+              '<div class="card-body">' +
+              "<p>" +
+              x.description +
+              "</p>" +
+              '<div class="register-button">Open &#187;</div>' +
+              "</div>" +
+              "</div>" +
+              "</div>";
+            content += board;
+          });
+          $(".grid").html(content);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          alert("Error occurred!");
+        },
+      });
+      function handleLogout() {
+        $.ajax({
+          url: "/api/logout",
+          type: "GET",
+          success: function (data, textStatus, jqXHR) {
+            location.reload();
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            alert("Error occurred!");
+          },
+        });
+      }
+      // Get the modal
+      var modal = document.getElementById("myModal");
 
-    <button class="plus">+</button>
+      // Get the button that opens the modal
+      var btn = document.getElementById("myBtn");
+
+      // Get the <span> element that closes the modal
+      var span = document.getElementsByClassName("close")[0];
+
+      // When the user clicks the button, open the modal
+      btn.onclick = function () {
+        modal.style.display = "block";
+      };
+
+      // When the user clicks on <span> (x), close the modal
+      span.onclick = function () {
+        modal.style.display = "none";
+      };
+
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      };
+
+      $("#loginAlert").hide();
+      const urlParams = new URLSearchParams(window.location.search);
+      const myParam = urlParams.get("error");
+      if (myParam == "Board_Not_Created") {
+        $("#loginAlertMessage").html("* Board creation failed 😨");
+        $("#loginAlert").show();
+      } else if (myParam == "User_Not_Exists") {
+        $("#loginAlertMessage").html("* User not found 😫");
+        $("#loginAlert").show();
+      } else if (myParam) {
+        $("#loginAlertMessage").html("* Undefined Error 😣");
+        $("#loginAlert").show();
+      }
+    </script>
   </body>
 </html>

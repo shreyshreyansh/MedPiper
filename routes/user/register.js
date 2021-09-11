@@ -1,7 +1,9 @@
 const User = require("../../models/user");
 module.exports = (req, res) => {
   // taking a user
-
+  if (!req.file) {
+    res.redirect("/signupPage?error=" + encodeURIComponent("Image_Empty"));
+  }
   const newuser = new User({
     email: req.body.email,
     firstname: req.body.firstname,
@@ -28,10 +30,7 @@ module.exports = (req, res) => {
             );
             return res.status(400).json({ success: false });
           }
-          res.status(200).json({
-            succes: true,
-            user: doc,
-          });
+          res.redirect("/loginPage");
         });
       }
     });

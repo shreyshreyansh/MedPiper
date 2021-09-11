@@ -3,7 +3,8 @@ module.exports = (req, res) => {
     isAuth: true,
     id: req.user._id,
     email: req.user.email,
-    name: req.user.firstname + " " + req.user.lastname,
+    firstname: req.user.firstname,
+    lastname: req.user.lastname,
     image: req.user.image,
   });
 };

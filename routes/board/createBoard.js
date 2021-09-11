@@ -9,20 +9,12 @@ module.exports = (req, res) => {
   });
   User.findOne({ _id: req.user._id }, function (err, user) {
     if (!user) {
-      return res.json({
-        status: "failure",
-        message: `User with the User Id ${req.user._id}, does not exists!`,
-      });
+      res.redirect("/home?error=" + encodeURIComponent("User_Not_Exists"));
     }
     Board.create(newBoard, function (err, result) {
       if (err) {
-        console.log(err);
-        return res.status(400).json({ success: false });
-      }
-      res.status(200).json({
-        succes: true,
-        board: result,
-      });
+        res.redirect("/home?error=" + encodeURIComponent("Board_Not_Created"));
+      } else res.redirect("/home");
     });
   });
 };
