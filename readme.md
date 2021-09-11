@@ -79,6 +79,5 @@ for installing the above packages you have to run the below command
 
     $ yarn build
 
-```
-
 ## Features snapshot
+
