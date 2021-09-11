@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="./css/login.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="login-form">
+      <h1>Login</h1>
+      <form id="form" action="/api/login" method="POST">
+        <div class="content">
+          <div class="alert" role="alert" id="loginAlert">
+            <p id="loginAlertMessage"></p>
+          </div>
+          <div class="input-field">
+            <input type="email" placeholder="Email" name="email" required />
+          </div>
+          <div class="input-field">
+            <input
+              type="password"
+              placeholder="Password"
+              name="password"
+              required
+            />
+          </div>
+        </div>
+        <div class="action">
+          <a href="/signupPage">Register</a>
+          <button type="submit">Sign in</button>
+        </div>
+      </form>
+    </div>
+    <script>
+      $("#loginAlert").hide();
+      const urlParams = new URLSearchParams(window.location.search);
+      const myParam = urlParams.get("error");
+      if (myParam == "Password_Incorrect") {
+        $("#loginAlertMessage").html("* Password is incorrect 😲");
+        $("#loginAlert").show();
+      } else if (myParam == "User_Not_Registered") {
+        $("#loginAlertMessage").html("* User is not registered 😎");
+        $("#loginAlert").show();
+      } else if (myParam == "Login_Failed") {
+        $("#loginAlertMessage").html(
+          "* User login failed. Please try again! 😅"
+        );
+        $("#loginAlert").show();
+      }
+    </script>
+  </body>
+</html>

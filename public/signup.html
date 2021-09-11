@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="./css/login.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="login-form">
+        <h1>Register</h1>
+        <div class="content">
+          <div class="alert" role="alert" id="loginAlert">
+            <p id="loginAlertMessage"></p>
+          </div>
+          <form id="form" action="/api/register" method="POST" enctype = "multipart/form-data">
+          <div class="input-field">
+            <input
+              type="firstname"
+              placeholder="firstname"
+              name="firstname"
+              required
+            />
+          </div>
+          <div class="input-field">
+            <input
+              type="lastname"
+              placeholder="lastname"
+              name="lastname"
+            />
+          </div>
+          <div class="input-field">
+            <input type="email" placeholder="Email" name="email"  required/>
+          </div>
+          <div class="input-field">
+            <input
+              type="password"
+              placeholder="Password"
+              name="password"
+              required
+            />
+          </div>
+          <div class="input-field">
+            <input
+              type="password"
+              placeholder="Confirm Password"
+              name="password2"
+              required
+            />
+          </div>
+          <div class="input-field">
+            <input type="file" id="image" name="image" accept="image/jpeg, image/png" />
+          </div>
+        </div>
+        <div class="action">
+          <a href="/loginPage">Sign in</a>
+          <button type="submit">Register</button>
+        </div>
+      </form>
+    </div>
+    <script>
+      $('#loginAlert').hide();
+    const urlParams = new URLSearchParams(window.location.search);
+    const myParam = urlParams.get('error');
+    if(myParam == "Password_Mismatch") {
+        $('#loginAlertMessage').html("* Password and confirm password do not match 😲");
+        $('#loginAlert').show();
+    }else if(myParam == "User_Exists") {
+        $('#loginAlertMessage').html("* User already exists 😎");
+        $('#loginAlert').show();
+    }else if(myParam == "Register_Failure") {
+        $('#loginAlertMessage').html("* User registration failed. Try again! 😅");
+        $('#loginAlert').show();
+    }
+    </script>
+  </body>
+</html>
