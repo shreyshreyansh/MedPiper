@@ -14,6 +14,7 @@ app.use("/uploads", express.static("uploads"));
 app.use(bodyparser.urlencoded({ extended: "false" }));
 app.use(bodyparser.json());
 app.use(cookieParser());
+app.use(express.static(__dirname + "/public"));
 
 // database connection
 mongoose.Promise = global.Promise;
@@ -119,6 +120,18 @@ app.post("/api/updateTask", auth, function (req, res) {
 
 app.post("/api/deleteTask", auth, function (req, res) {
   deleteTask(req, res);
+});
+
+app.get("/home", auth, function (req, res) {
+  res.sendFile(__dirname + "/public/home.html");
+});
+
+app.get("/loginPage", function (req, res) {
+  res.sendFile(__dirname + "/public/login.html");
+});
+
+app.get("/signupPage", function (req, res) {
+  res.sendFile(__dirname + "/public/signup.html");
 });
 
 // listening port
