@@ -13,44 +13,42 @@
   </head>
   <body>
     <div class="login-form">
-        <h1>Register</h1>
+        <h1>Settings</h1>
         <div class="content">
           <div class="alert" role="alert" id="loginAlert">
             <p id="loginAlertMessage"></p>
           </div>
-          <form id="form" action="/api/register" method="POST" enctype = "multipart/form-data">
+          <form id="form" action="/api/updateUser" method="POST" enctype = "multipart/form-data">
           <div class="input-field">
             <input
+              id="firstname"
               type="firstname"
               placeholder="firstname"
               name="firstname"
-              required
             />
           </div>
           <div class="input-field">
             <input
+              id="lastname"
               type="lastname"
               placeholder="lastname"
               name="lastname"
             />
           </div>
           <div class="input-field">
-            <input type="email" placeholder="Email" name="email"  required/>
-          </div>
-          <div class="input-field">
             <input
+              id="password"
               type="password"
               placeholder="Password"
               name="password"
-              required
             />
           </div>
           <div class="input-field">
             <input
+              id="password2"
               type="password"
               placeholder="Confirm Password"
               name="password2"
-              required
             />
           </div>
           <div class="input-field">
@@ -58,8 +56,8 @@
           </div>
         </div>
         <div class="action">
-          <a href="/loginPage">Sign in</a>
-          <button type="submit">Register</button>
+          <a href="/home">home</a>
+          <button type="submit">Make changes</button>
         </div>
       </form>
     </div>
@@ -75,9 +73,6 @@
         $('#loginAlert').show();
     }else if(myParam == "Register_Failure") {
         $('#loginAlertMessage').html("* User registration failed. Try again! 😅");
-        $('#loginAlert').show();
-    }else if(myParam == "Image_Empty") {
-      $('#loginAlertMessage').html("* Please upload an image 😏");
         $('#loginAlert').show();
     }
     </script>

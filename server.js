@@ -118,9 +118,12 @@ app.post("/api/updateTask", auth, function (req, res) {
   updateTask(req, res);
 });
 
+// delete the todo task on the board og logged in user
 app.post("/api/deleteTask", auth, function (req, res) {
   deleteTask(req, res);
 });
+
+// ========================SERVER SERVING PAGES========================
 
 app.get("/home", auth, function (req, res) {
   res.sendFile(__dirname + "/public/home.html");
@@ -132,6 +135,14 @@ app.get("/loginPage", function (req, res) {
 
 app.get("/signupPage", function (req, res) {
   res.sendFile(__dirname + "/public/signup.html");
+});
+
+app.get("/settings", auth, function (req, res) {
+  res.sendFile(__dirname + "/public/settings.html");
+});
+
+app.get("/api/taskPage/:boardId", auth, function (req, res) {
+  res.sendFile(__dirname + "/public/task.html");
 });
 
 // listening port

@@ -2,7 +2,7 @@
   box-sizing: border-box;
 }
 body {
-  font-family: "Rubik", sans-serif;
+  font-family: "Roboto", sans-serif;
   margin: 0;
   padding: 3rem;
 }
@@ -147,7 +147,7 @@ body {
   position: fixed;
   background-color: #f1f1f1;
   min-width: 160px;
-  bottom: 62px;
+  bottom: 40px;
   left: 20px;
   border-radius: 10px;
   z-index: 1;
@@ -165,6 +165,21 @@ body {
   background-color: #ccc;
 }
 
+.dropup-content button {
+  color: black;
+  border-radius: 10px;
+  padding: 12px 16px;
+  text-decoration: none;
+  border: none;
+  width: 100%;
+  font-size: 1rem;
+  text-align: left;
+  display: block;
+}
+.dropup-content button:hover {
+  background-color: #ccc;
+}
+
 .dropup:hover .dropup-content {
   display: block;
 }
@@ -173,4 +188,110 @@ body {
   /* Scaling button to 0.98 to its original size */
   box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
   /* Lowering the shadow */
+}
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  /* padding-left: 20px;
+  padding-right: 20px; */
+  padding-top: 10px;
+  border: 1px solid #888;
+  width: 20%;
+  border-radius: 10px;
+}
+
+.modal-form {
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.input-field {
+  padding: 12px 5px;
+}
+.input-field input {
+  font-size: 16px;
+  display: block;
+  font-family: "Rubik", sans-serif;
+  width: 100%;
+  padding: 10px 1px;
+  border: 0;
+  border-bottom: 1px solid #747474;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.input-field input::placeholder {
+  text-transform: uppercase;
+}
+.input-field input:focus {
+  border-color: #222;
+}
+
+#create {
+  width: 100%;
+  border: none;
+  padding: 18px;
+  font-family: "Rubik", sans-serif;
+  cursor: pointer;
+  text-transform: uppercase;
+  background: #e8e9ec;
+  color: #777;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 0;
+  letter-spacing: 0.2px;
+  outline: 0;
+  transition: all 0.3s;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+#create:hover {
+  background: #000;
+  color: #fff;
+}
+.alert {
+  font-size: 0.8rem;
+  color: #f5554a;
+  text-align: center;
+}
+.delete-button {
+  background-color: #e5bc73;
+  border: none;
+  position: absolute;
+  bottom: 10px;
+  left: 5px;
+}
+#username {
+  padding: 0 15px;
 }

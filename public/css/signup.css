@@ -5,8 +5,7 @@
   -webkit-font-smoothing: antialiased;
 }
 body {
-  /* background: #e35869; */
-  font-family: "Rubik", sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 .login-form {
   background: #fff;

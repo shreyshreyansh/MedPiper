@@ -1,6 +1,6 @@
 const Board = require("../../models/board");
 module.exports = (req, res) => {
-  Board.update(
+  Board.updateOne(
     {
       _id: req.body.boardID,
       userID: req.user._id,
@@ -8,7 +8,6 @@ module.exports = (req, res) => {
     },
     {
       $set: {
-        "list.$.task": req.body.task,
         "list.$.status": req.body.status,
       },
     },

@@ -1,0 +1,195 @@
+<html>
+  <head>
+    <title>To Do List</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/task.css" />
+  </head>
+  <body>
+    <!---------------Main Box-->
+    <div class="container">
+      <div class="todoBlock">
+        <!-- main title holder -->
+        <div class="titleHolder">
+          <h1 id="todoHead"></h1>
+        </div>
+        <!-- todo list -->
+        <div class="todoList">
+          <!-- list holder -->
+          <div class="listHolder" id="listHolder">
+            <ul class="list" id="lists">
+              <!-----------GetValue by Javascript-->
+            </ul>
+          </div>
+          <!-- form holder -->
+          <div class="formHolder">
+            <div class="col big">
+              <input type="text" id="addInput" required />
+            </div>
+            <div class="col">
+              <button type="button" id="addBtn" class="btn-primary">
+                Add Item
+              </button>
+            </div>
+            <div class="col">
+              <button
+                type="button"
+                id="deleteBoard"
+                class="btn-primary"
+                onclick="handleBoardDelete()"
+              >
+                Delete Board
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      var url = window.location.pathname;
+      var boardID = url.substring(url.lastIndexOf("/") + 1);
+      var data = { boardID: boardID };
+      if (boardID) {
+        $.ajax({
+          url: "/api/getBoard",
+          type: "POST",
+          data: data,
+          success: function (data, textStatus, jqXHR) {
+            document.getElementById("todoHead").innerText =
+              jqXHR.responseJSON.board.name;
+            const tasks = jqXHR.responseJSON.board.list;
+            var content = "";
+            tasks.map((task) => {
+              if (task.status == "Todo") {
+                content +=
+                  "<li>" +
+                  task.task +
+                  `<div class="listIcon" onclick="handleDelete('${task._id}')"><button>X</button></div>` +
+                  `<select name="status" class="status" id='${task._id}' onchange="updateStatus('${task._id}')">` +
+                  '<option id="todo" value="Todo" selected="selected">To do</option>' +
+                  '<option id="doing" value="Doing">In Progress</option>' +
+                  '<option id="done" value="Done">Completed</option>' +
+                  "</select>" +
+                  "</li>";
+              } else if (task.status == "Doing") {
+                content +=
+                  "<li>" +
+                  task.task +
+                  `<div class="listIcon" onclick="handleDelete('${task._id}')"><button>X</button></div>` +
+                  `<select name="status" class="status" id='${task._id}' onchange="updateStatus('${task._id}')">` +
+                  '<option id="todo" value="Todo">To do</option>' +
+                  '<option id="doing" value="Doing" selected="selected">In Progress</option>' +
+                  '<option id="done" value="Done">Completed</option>' +
+                  "</select>" +
+                  "</li>";
+              } else if (task.status == "Done") {
+                content +=
+                  "<li>" +
+                  task.task +
+                  `<div class="listIcon" onclick="handleDelete('${task._id}')"><button>X</button></div>` +
+                  `<select name="status" class="status" id='${task._id}' onchange="updateStatus('${task._id}')">` +
+                  '<option id="todo" value="Todo">To do</option>' +
+                  '<option id="doing" value="Doing">In Progress</option>' +
+                  '<option id="done" value="Done" selected="selected">Completed</option>' +
+                  "</select>" +
+                  "</li>";
+              }
+            });
+            document.getElementById("lists").innerHTML = content;
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            alert("Error occurred!");
+          },
+        });
+        var addbtn = document.getElementById("addBtn");
+        var removeBtn = document.getElementById("removeBtn");
+        var input = document.getElementById("addInput");
+        var list = document.getElementById("lists");
+        var dlt = document.getElementsByClassName("listIcon");
+
+        addbtn.addEventListener("click", addItem);
+
+        function addItem() {
+          const addValue = document.getElementById("addInput").value;
+          const data = {
+            boardID: boardID,
+            task: addValue,
+            status: "Todo",
+          };
+          $.ajax({
+            url: "/api/addTask",
+            type: "POST",
+            data: data,
+            success: function (data, textStatus, jqXHR) {
+              location.reload();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+              alert("Error occurred!");
+            },
+          });
+        }
+
+        //Delete Items
+        function handleDelete(taskID) {
+          const data = {
+            boardID: boardID,
+            taskID: taskID,
+          };
+          $.ajax({
+            url: "/api/deleteTask",
+            type: "POST",
+            data: data,
+            success: function (data, textStatus, jqXHR) {
+              location.reload();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+              alert("Error occurred!");
+            },
+          });
+        }
+        function updateStatus(taskID) {
+          const data = {
+            boardID: boardID,
+            taskID: taskID,
+            status: document.getElementById(taskID).value,
+          };
+          $.ajax({
+            url: "/api/updateTask",
+            type: "POST",
+            data: data,
+            success: function (data, textStatus, jqXHR) {
+              location.reload();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+              alert("Error occurred!");
+            },
+          });
+        }
+      }
+      function handleBoardDelete() {
+        const data = {
+          boardID: boardID,
+        };
+        $.ajax({
+          url: "/api/deleteBoard",
+          type: "POST",
+          data: data,
+          success: function (data, textStatus, jqXHR) {
+            location.href = "/home";
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            alert("Error occurred!");
+          },
+        });
+      }
+    </script>
+  </body>
+</html>
