@@ -78,3 +78,7 @@ for installing the above packages you have to run the below command
 ## Simple build for production
 
     $ yarn build
+
+```
+
+## Features snapshot
