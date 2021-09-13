@@ -81,6 +81,20 @@ for installing the above packages you have to run the below command
 
 ## Features snapshot
 
+- Login a user <br/><br/>
+  - ![Screenshot-2021-09-13-085413](https://user-images.githubusercontent.com/53744971/133021351-b65f2bef-53ed-4976-9d1c-66cee53039e4.jpg) <br/><br/>
+- Register page for the user <br/><br/>
+  - ![registerPhoto](https://user-images.githubusercontent.com/53744971/133021128-7119f40d-a663-476b-bd6a-06af4827c322.jpg) <br/><br/>
+- Home page of the user <br/><br/>
+  - ![homePhoto](https://user-images.githubusercontent.com/53744971/133021168-93861e8e-11ac-4bf7-9816-9a730321309b.jpg) <br/><br/>
+- Board page of the user <br/><br/>
+  - ![boardPhoto](https://user-images.githubusercontent.com/53744971/133021198-eefc778c-2285-46ff-ab45-dca640a9d725.jpg) <br/><br/>
+- Settings page of the user <br/><br/>
+  - ![settingsPhoto](https://user-images.githubusercontent.com/53744971/133021221-6e6d8f7c-47af-443e-bee9-2dcdfb0c50ba.jpg) <br/><br/>
+- Auth token is stored in local storage of the browser <br/><br/>
+  - ![authPhoto](https://user-images.githubusercontent.com/53744971/133021252-48277eb1-04fe-4527-b59f-c914d1d43bb7.jpg)
+
+
 ## Features Video Snapshots
 
   [See Video snapshots](https://drive.google.com/drive/folders/1qFJjxlrjGQB9OZTtbe3F34xKa4rIFNoZ?usp=sharing)
